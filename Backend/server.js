@@ -11,8 +11,28 @@ const { scrapeHackerNews } = require("./src/services/scraper");
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// ── CORS Configuration ──────────────────────────────────
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:5173").split(",");
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for this origin"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  maxAge: 86400, // 24 hours
+};
+
 // ── Middleware ──────────────────────────────────────────
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // ── Routes ─────────────────────────────────────────────
