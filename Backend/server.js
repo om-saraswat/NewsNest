@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // ── CORS Configuration ──────────────────────────────────
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:5173").split(",");
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:5173,https://news-nest-gules.vercel.app").split(",");
 
 const corsOptions = {
   origin: (origin, callback) => {
