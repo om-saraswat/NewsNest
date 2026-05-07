@@ -1,0 +1,7 @@
+{
+  "watch": ["server.js", "src/"],
+  "ignore": ["node_modules/", ".env"],
+  "ext": "js,json",
+  "delay": 1000,
+  "signal": "SIGTERM"
+}
